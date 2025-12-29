@@ -1,32 +1,46 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  console.log("🚀 Fırlatma İşlemi Başlatılıyor...");
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
-
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
-
-  await lock.waitForDeployment();
-
+  // 1. Cüzdanı Tanı
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("👨‍✈️ Pilot (Deployer) Hesabı:", deployer.address);
   console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
+    "💰 Hesap Bakiyesi:",
+    (await hre.ethers.provider.getBalance(deployer.address)).toString()
   );
+
+  // 2. Önce Sahte Parayı (MockMNEE) Yükle
+  // NOT: Gerçek Testnet'te MNEE token adresi belliyse bu adımı atlayıp direkt adresi yazabiliriz.
+  // Ama garanti olsun diye kendi tokenımızı basıyoruz.
+  console.log("------------------------------------------------");
+  console.log("Coin basılıyor...");
+  const MockToken = await hre.ethers.getContractFactory("MockMNEE");
+  const mockToken = await MockToken.deploy();
+  await mockToken.waitForDeployment();
+  const tokenAddress = mockToken.target;
+  console.log("✅ MockMNEE Yüklendi! Adresi:", tokenAddress);
+
+  // 3. Kasayı (Escrow) Yükle
+  console.log("------------------------------------------------");
+  console.log("Kasa (Escrow) kuruluyor...");
+  const Escrow = await hre.ethers.getContractFactory("AgenticEscrow");
+  
+  // Parametreler: (Token Adresi, Validator Adresi)
+  // Validator olarak şimdilik deploy eden kişinin (senin) adresini veriyoruz.
+  const escrow = await Escrow.deploy(tokenAddress, deployer.address);
+  await escrow.waitForDeployment();
+  const escrowAddress = escrow.target;
+  console.log("✅ AgenticEscrow Yüklendi! Adresi:", escrowAddress);
+
+  console.log("------------------------------------------------");
+  console.log("🎉 OPERASYON BAŞARILI!");
+  console.log("Bu adresleri bir yere not et (Frontend'de lazım olacak):");
+  console.log(`TOKEN_ADDRESS="${tokenAddress}"`);
+  console.log(`ESCROW_ADDRESS="${escrowAddress}"`);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
