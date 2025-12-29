@@ -1,0 +1,83 @@
+body {
+  background-color: #050505;
+  color: #00ff41;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 800px;
+  text-align: center;
+  border: 1px solid #333;
+  padding: 30px;
+  background: #0d0d0d;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+}
+
+button {
+  background: transparent;
+  color: #00ff41;
+  border: 1px solid #00ff41;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background: #00ff41;
+  color: #000;
+  box-shadow: 0 0 15px #00ff41;
+}
+
+input {
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  padding: 10px;
+  font-family: inherit;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.info-box {
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
+}
+
+.address {
+  font-size: 0.9em;
+  word-break: break-all;
+  color: #fff;
+}
+
+.status-log {
+  margin-top: 10px;
+  color: #ffff00;
+  font-size: 0.9em;
+}
+
+.control-panel {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  border: 1px solid #222;
+  padding: 20px;
+  flex: 1;
+}
