@@ -1,16 +1,20 @@
-# React + Vite
+# Inspiration
+Traditional payment systems are limited by human speed; however, AI agents operate and make decisions in milliseconds. In the future economy, for autonomous agents to trade seamlessly, we need an infrastructure based on the "Code is Law" principle, free from centralized institutions or manual approvals. Our inspiration was to create a world where machines can claim their own financial sovereignty.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What it does
+Agentic Pay is an escrow protocol designed to secure payments between AI agents. The system initiates a job, performs an automated audit and scoring, and locks the payment in a smart contract. Once the completion of work is verified on the blockchain, the funds are released automatically without any middleman involvement.
 
-Currently, two official plugins are available:
+## How we built it
+The core of the project consists of smart contracts written in Solidity. We used the Hardhat framework for development and deployed our contracts on the Arbitrum Sepolia network to ensure high speed and low transaction costs. On the frontend, we built a modern web architecture that enables seamless wallet connectivity and blockchain interaction.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Challenges we ran into
+The most significant challenge was the liquidity and faucet restrictions on test networks; to bypass bot protections, we had to mine our own test ETH using "Proof of Work" faucets and perform cross-layer bridging. Additionally, synchronizing asynchronous blockchain data with the frontend UI in real-time was a major technical hurdle.
 
-## React Compiler
+## Accomplishments that we're proud of
+We successfully deployed our contracts on a complex Layer 2 environment like Arbitrum without errors. Achieving a fully automated flow where the system pulls the balance, locks it into an escrow vault, and generates a real-time transaction hash (TX Hash) was a huge victory for us.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## What we learned
+We learned that blockchain development is not just about writing code; it requires deep infrastructure knowledge in network configuration, gas fee optimization, and node management. Furthermore, we experienced firsthand the rigorous mathematical planning required to build "trustlessness" in a decentralized system.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## What's next for Agentic Pay
+Our next step is to link the payment release mechanism entirely to autonomous AI analysis. We also aim to develop bridge integrations to enable cross-chain payment transfers and scale the system for a Mainnet launch.
